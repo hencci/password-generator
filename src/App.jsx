@@ -1,35 +1,56 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import PasswordDisplay from "./components/PassworDisplay.jsx";
+import StrengthMeter from "./components/StrengthMeter.jsx";
+import RuleToggle from "./components/RuleToggle.jsx";
+import HistoryList from "./components/HistoryList.jsx";
+import { usePasswordGenerator } from "./hooks/usePasswordGenerator.js";
+import { useDarkMode } from "./hooks/useDarkMode";
+import { calculateStrength } from "./utils/passwordStrength";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const { password, length, rules, history, setLength, setRules, generate } =
+    usePasswordGenerator();
+
+  const [dark, setDark] = useDarkMode();
+  const strength = calculateStrength(password);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="min-h-screen p-4 max-w-md mx-auto">
+      <header className="flex justify-between mb-4">
+        <h1 className="text-xl font-bold">Password Generator</h1>
+        <button onClick={() => setDark(!dark)}>{dark ? "🌙" : "☀️"}</button>
+      </header>
 
-export default App
+      <PasswordDisplay password={password} />
+      <StrengthMeter strength={strength} />
+
+      <div className="space-y-2 mt-4">
+        <input
+          type="range"
+          min="6"
+          max="32"
+          value={length}
+          onChange={(e) => setLength(+e.target.value)}
+        />
+        <p>Length: {length}</p>
+
+        {Object.keys(rules).map((rule) => (
+          <RuleToggle
+            key={rule}
+            label={rule}
+            checked={rules[rule]}
+            onChange={() => setRules({ ...rules, [rule]: !rules[rule] })}
+          />
+        ))}
+      </div>
+
+      <button
+        onClick={generate}
+        className="w-full mt-4 bg-primary text-white py-2 rounded"
+      >
+        Generate Password
+      </button>
+
+      <HistoryList history={history} />
+    </div>
+  );
+}
