@@ -1,16 +1,131 @@
-# React + Vite
+# 🔐 Password Generator & Strength Checker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, secure, and user-friendly Password Generator built with React + Vite.
+It allows users to generate strong passwords based on customizable rules, evaluate password strength in real-time, and store a history of generated passwords locally — all wrapped in a sleek mobile-first UI with dark & light mode support.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## React Compiler
+- 🔑 Custom Password Generation
+  - Control password length
+  - Toggle:
+    - Lowercase letters
+    - Uppercase letters
+    - Numbers
+    - Symbols
+- 📊 Password Strength Meter
+  - Real-time feedback
+  - Visual strength bar
+  - Labels: Weak → Very Strong
+- 📋 Copy to Clipboard
+  - One-click password copying
+- 🕘 Password History
+  - Stores recently generated passwords
+  - Persisted using localStorage
+- 🌗 Dark / Light Mode
+  - System-friendly
+  - Preference saved locally
+- 📱 Mobile-First Responsive Design
+  - Works beautifully on phones, tablets, and desktops
+- ✨ Smooth UI Animations
+  - Powered by Framer Motion
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+| Technology        | Purpose                     |
+| ----------------- | --------------------------- |
+| **React**         | UI Framework                |
+| **Vite**          | Fast build tool             |
+| **Tailwind CSS**  | Styling & responsiveness    |
+| **Framer Motion** | Animations                  |
+| **LocalStorage**  | Theme & history persistence |
+
+---
+
+## 📂 Project Structure
+
+```css
+src/
+├── components/
+│   ├── PasswordDisplay.jsx
+│   ├── StrengthMeter.jsx
+│   ├── RuleToggle.jsx
+│   └── HistoryList.jsx
+│
+├── hooks/
+│   ├── usePasswordGenerator.js
+│   └── useDarkMode.js
+│
+├── utils/
+│   ├── generatePassword.js
+│   └── passwordStrength.js
+│
+├── App.jsx
+├── main.jsx
+└── index.css
+```
+
+---
+
+## 🚀 Getting Started
+
+### 1️⃣ Clone the repository
+
+```bash
+git clone https://github.com/hencci/password-generator.git
+cd password-generator
+```
+
+### 2️⃣ Install dependencies
+
+```bash
+npm install
+```
+
+### 3️⃣ Run the development server
+
+```bash
+npm run dev
+```
+
+Open local host
+
+---
+
+## 🔒 Password Strength Logic
+
+The strength meter is calculated using:
+
+- Password length
+- Presence of:
+
+  - Uppercase letters
+  - Numbers
+  - Special characters
+
+Each condition increases the strength score, producing:
+Weak → Okay → Good → Strong → Very Strong
+
+---
+
+## 🧾 License
+
+This project is open-source and available under the MIT License.
+
+---
+
+## Live preview
+
+https://hencci-password-generator.netlify.app
+
+---
+
+## 👨‍💻 Author
+
+Henry Moses
+
+- [GitHub](https://github.com/hencci)
+- [LinkedIn](https://linkedin.com/in/henry-orlu-moses-78bb74286)
